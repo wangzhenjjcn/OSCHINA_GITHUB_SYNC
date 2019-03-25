@@ -1,0 +1,2 @@
+# OSCHINA_GITHUB_SYNC
+OSCHINA和GITHUB同步，服务器同步，减缓客户端等待焦虑
