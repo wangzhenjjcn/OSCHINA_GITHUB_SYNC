@@ -1,0 +1,7 @@
+github_addr=
+oschina_addr=
+github_username=
+github_pwd=
+oschina_username=
+oschina_pwd=
+sync_time=
