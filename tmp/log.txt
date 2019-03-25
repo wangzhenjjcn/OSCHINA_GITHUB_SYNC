@@ -1,0 +1,4 @@
+git version 2.19.1.windows.1
+  4 :  13 : 01  git version 2.19.1.windows.1
+ 2019-03-26_04.14.25 git version 2.19.1.windows.1
+2019-03-26_04.14.48     git version 2.19.1.windows.1
