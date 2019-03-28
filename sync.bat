@@ -25,8 +25,12 @@ set tmpdirx=%rootdirx%tmp
 :gitCheck
 cd %rootdirx%
 Echo %date:~0,4%-%date:~5,2%-%date:~8,2%_%TIME:~0,2%.%TIME:~3,2%.%TIME:~6,2%    start check git>>"%rootdirx%/log.txt"
+cd %rootdirx%
+if not exist git.local (
+git config --global credential.helper store
+git credential-manager uninstall
+)
 git --version > git.local
-
 for /f "delims=" %%a in (git.local) do ( 
 	for /f "tokens=1* delims=:" %%i in ('call echo %%a^|find /i "version"') do (
 		Echo %date:~0,4%-%date:~5,2%-%date:~8,2%_%TIME:~0,2%.%TIME:~3,2%.%TIME:~6,2%    %%a>>"%rootdirx%/log.txt"
@@ -45,6 +49,10 @@ goto configCheck
 
 :configCheck
 cd %rootdirx%
+if not exist git.local (
+git config --global credential.helper store
+git credential-manager uninstall
+)
 Echo %date:~0,4%-%date:~5,2%-%date:~8,2%_%TIME:~0,2%.%TIME:~3,2%.%TIME:~6,2%    checking config>>"%rootdirx%/log.txt"
 for /f "tokens=1,* delims==" %%a in (
 'findstr "github_addr=" git.config'
@@ -311,6 +319,12 @@ echo 开始拷贝文件
 Echo %date:~0,4%-%date:~5,2%-%date:~8,2%_%TIME:~0,2%.%TIME:~3,2%.%TIME:~6,2%    开始拷贝文件>>"%rootdirx%/log.txt"
 xcopy  /Y/E/C %rootdirx%%sync_dir%\*.*  %tmpdirx%\oschina\   
 xcopy /Y/E/C  %rootdirx%%sync_dir%\*  %tmpdirx%\oschina\    
+echo 删除同步文件
+del  /S /Q %rootdirx%%sync_dir%\*.*
+del  /S /Q %rootdirx%%sync_dir%\* 
+rd /S /Q %rootdirx%%sync_dir%\index.files\
+echo 文件夹已清空
+ping -n 2 localhost 1>nul 2>nul
 REM xcopy /Y /V /S /T /E /Q /C /H /U  %rootdirx%%sync_dir%\*.* %tmpdirx%\github\ >>"%rootdirx%/log.txt"
 echo 拷贝结束。准备添加并提交
 Echo %date:~0,4%-%date:~5,2%-%date:~8,2%_%TIME:~0,2%.%TIME:~3,2%.%TIME:~6,2%    拷贝结束>>"%rootdirx%/log.txt"
